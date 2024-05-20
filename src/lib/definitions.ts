@@ -16,3 +16,8 @@ export type Article = {
   origin: string;
   content: string;
 };
+
+export type Admin = {
+  username: string;
+  password: string;
+};
