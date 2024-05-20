@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ArticleModel } from "../models/articleModel";
+import { ArticleModel } from "../models/ArticleModel";
 
 export const addAnArticle = async (req: Request, res: Response) => {
   const { slug, title, introduction, author, read, topic, origin, content } =
