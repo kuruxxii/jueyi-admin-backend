@@ -5,6 +5,9 @@ import passport from "passport";
 const router = Router();
 
 router.post("/signup", signup);
+/*
+The (req, res, next) at the end of the passport.authenticate function call is necessary for immediately invoking the middleware function returned by passport.authenticate. 
+*/
 router.post("/login", (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", (err: any, user: any, info: any) => {
     if (err) {
@@ -25,7 +28,11 @@ router.post("/login", (req: Request, res: Response, next: NextFunction) => {
     });
   })(req, res, next);
 });
-
+router.get("/status", (req: Request, res: Response) => {
+  req.user
+    ? res.status(200).json({ isAuthenticated: true, admin: req.user.username })
+    : res.status(401).json({ isAuthenticated: false });
+});
 router.post("/logout", logout);
 
 export default router;
