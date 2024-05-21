@@ -11,17 +11,11 @@ declare global {
   }
 }
 
-// serializeUser is called once during the login process to save the determined user information (username here) to the session.
 passport.serializeUser((user, done) => {
   console.log("serialize user");
   done(null, user.username);
 });
 
-/*
-deserializeUser is called on every subsequent request to retrieve the user information from the session.
-deserializeUser uses the retrieved user information to look up the user in the database
-and attach the fetched object to the request object as req.user.
-*/
 passport.deserializeUser(async (username, done) => {
   console.log("deserialize user");
   try {
@@ -35,7 +29,7 @@ passport.deserializeUser(async (username, done) => {
   }
 });
 
-export default passport.use(
+passport.use(
   new Strategy(async (username, password, done) => {
     try {
       const admin = await AdminModel.findOne({

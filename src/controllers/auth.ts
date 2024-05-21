@@ -2,6 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import { AdminModel } from "../models/AdminModel";
 import { hashPassword } from "../lib/utils";
 
+// declare module "express-session" {
+//   interface SessionData {
+//     passport: {
+//       user: string;
+//     };
+//   }
+// }
+
 export const signup = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
@@ -23,11 +31,13 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-export const login = async (req: Request, res: Response) => {
-  console.log(req.user);
-  console.log(req.session);
-  res.status(200).json({ msg: "You are logged in." });
-};
+// export const login = async (req: Request, res: Response) => {
+//   console.log(req.session);
+//   if (req.user) {
+//     const admin = req.session.passport!.user;
+//     res.status(200).json({ admin });
+//   }
+// };
 
 /*
 Passport.js exposes a logout function within the request object: req.logout.
