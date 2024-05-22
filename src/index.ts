@@ -35,7 +35,7 @@ app.use(
     cookie: {
       maxAge: 600000 * 60 * 24 * 7, // Cookie expires in one week
       secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-      httpOnly: true, // Ensures the cookie is only accessible by the web server
+      httpOnly: true, // Cookies with httpOnly flag are not accessible via JavaScript, reducing the risk of XSS attacks.
       sameSite: "lax", // Adjust SameSite policy as needed ('lax', 'strict', or 'none')
     },
     store: MongoStore.create({ mongoUrl: process.env.DB_URI }),
