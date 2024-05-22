@@ -13,6 +13,10 @@ const articleSchema = new Schema<Article>(
       type: String,
       required: true,
     },
+    coverUrl: {
+      type: String,
+      required: true,
+    },
     introduction: {
       type: String,
       required: true,
