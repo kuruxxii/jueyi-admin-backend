@@ -9,6 +9,7 @@ export type Topic =
 export type Article = {
   slug: string;
   title: string;
+  coverUrl: string;
   introduction: string;
   author: string;
   read: number;
