@@ -16,7 +16,15 @@ const app = express();
 
 // middleware
 app.use(morgan("tiny"));
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET));
 app.use(
@@ -25,7 +33,10 @@ app.use(
     saveUninitialized: false,
     resave: false,
     cookie: {
-      maxAge: 600000 * 60 * 24 * 7,
+      maxAge: 600000 * 60 * 24 * 7, // Cookie expires in one week
+      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+      httpOnly: true, // Ensures the cookie is only accessible by the web server
+      sameSite: "lax", // Adjust SameSite policy as needed ('lax', 'strict', or 'none')
     },
     store: MongoStore.create({ mongoUrl: process.env.DB_URI }),
   })
