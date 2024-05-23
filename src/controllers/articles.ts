@@ -72,8 +72,34 @@ export const deleteAnArticle = async (req: Request, res: Response) => {
 //   }
 // };
 
+const ARTICLES_PER_PAGE = 3;
+
+export const getFilteredArticlesTotalPages = async (
+  req: Request,
+  res: Response
+) => {
+  const query: string = (req.query.query as string) || "";
+  try {
+    // Count the total number of filtered articles
+    const totalArticles = await ArticleModel.countDocuments({
+      $or: [
+        { slug: { $regex: query, $options: "i" } },
+        { title: { $regex: query, $options: "i" } },
+        { author: { $regex: query, $options: "i" } },
+        { content: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    // Calculate total pages
+    const totalPages = Math.ceil(totalArticles / ARTICLES_PER_PAGE);
+
+    res.json({ totalPages });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 export const getFilteredArticles = async (req: Request, res: Response) => {
-  const ARTICLES_PER_PAGE = 3;
   const page: number = parseInt(req.query.page as string, 10) || 1;
   const query: string = (req.query.query as string) || "";
   const offset: number = (page - 1) * ARTICLES_PER_PAGE;
