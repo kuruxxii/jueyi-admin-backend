@@ -3,12 +3,12 @@ import {
   addAnArticle,
   modifyAnArticle,
   deleteAnArticle,
-  getArticles,
+  getFilteredArticles,
 } from "../controllers/articles";
 
 const router = Router();
 
-router.get("/", getArticles);
+router.get("/", getFilteredArticles);
 router.post("/", addAnArticle);
 router.patch("/:slug", modifyAnArticle);
 router.delete("/:slug", deleteAnArticle);
