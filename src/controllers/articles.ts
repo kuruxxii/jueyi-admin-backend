@@ -31,6 +31,20 @@ export const addAnArticle = async (req: Request, res: Response) => {
   }
 };
 
+export const getAnArticle = async (req: Request, res: Response) => {
+  const { slug } = req.params;
+  try {
+    const article = await ArticleModel.findOne({ slug }).exec();
+    if (!article) {
+      res.status(400).json("No such article");
+    } else {
+      res.status(200).json(article);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 export const modifyAnArticle = async (req: Request, res: Response) => {
   const { slug } = req.params;
   try {
@@ -39,9 +53,9 @@ export const modifyAnArticle = async (req: Request, res: Response) => {
       { ...req.body }
     ).exec();
     if (!article) {
-      res.status(400).json("No such article");
+      res.status(400).json({ error: "No such article" });
     } else {
-      res.status(200).json("Modification succeeded");
+      res.status(200).json(article);
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -72,7 +86,7 @@ export const deleteAnArticle = async (req: Request, res: Response) => {
 //   }
 // };
 
-const ARTICLES_PER_PAGE = 3;
+const ARTICLES_PER_PAGE = 8;
 
 export const getFilteredArticlesTotalPages = async (
   req: Request,
