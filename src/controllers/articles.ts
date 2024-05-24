@@ -67,9 +67,9 @@ export const deleteAnArticle = async (req: Request, res: Response) => {
   try {
     const article = await ArticleModel.findOneAndDelete({ slug }).exec();
     if (!article) {
-      res.status(400).json("No such article");
+      res.status(400).json({ error: "No such article" });
     } else {
-      res.status(200).json("Deletion succeeded");
+      res.status(200).json({ msg: "Deletion succeeded" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
