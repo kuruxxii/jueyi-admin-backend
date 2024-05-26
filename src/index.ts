@@ -11,12 +11,12 @@ import MongoStore from "connect-mongo";
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import authRouter from "./routes/auth";
 import articlesRouter from "./routes/articles";
+import usersRouter from "./routes/users";
 
 const app = express();
 
 // middleware
-app.use(morgan("tiny"));
-// app.use(cors());
+app.use(morgan("combined"));
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -46,6 +46,7 @@ app.use(passport.session());
 // routes
 app.use("/admin/auth", authRouter);
 app.use("/admin/articles", ensureAuthenticated, articlesRouter);
+app.use("/admin/users", ensureAuthenticated, usersRouter);
 
 mongoose
   .connect(process.env.DB_URI as string)
