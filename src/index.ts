@@ -11,6 +11,7 @@ import MongoStore from "connect-mongo";
 import { ensureAuthenticated } from "./middleware/ensureAuthenticated";
 import authRouter from "./routes/auth";
 import articlesRouter from "./routes/articles";
+import journalRouter from "./routes/journals";
 import usersRouter from "./routes/users";
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(passport.session());
 // routes
 app.use("/admin/auth", authRouter);
 app.use("/admin/articles", ensureAuthenticated, articlesRouter);
+app.use("/admin/journals", ensureAuthenticated, journalRouter);
 app.use("/admin/users", ensureAuthenticated, usersRouter);
 
 mongoose

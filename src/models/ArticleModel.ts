@@ -8,10 +8,12 @@ const articleSchema = new Schema<Article>(
       type: String,
       required: true,
       unique: true,
+      immutable: true,
     },
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     coverUrl: {
       type: String,
