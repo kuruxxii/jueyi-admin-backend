@@ -1,6 +1,20 @@
 import { Request, Response } from "express";
 import { JournalModel } from "../models/JournalModel";
 
+export const getAJournal = async (req: Request, res: Response) => {
+  const { vol } = req.params;
+  try {
+    const journal = await JournalModel.findOne({ vol }).exec();
+    if (!journal) {
+      res.status(400).json({ msg: "No such Journal" });
+    } else {
+      res.status(200).json(journal);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 export const getPaginatedJournals = async (req: Request, res: Response) => {
   const journalsPerPage = 9;
   const page: number = parseInt(req.query.page as string, 10) || 1;
