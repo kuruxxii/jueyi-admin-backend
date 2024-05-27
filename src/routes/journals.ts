@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 
 import {
+  getPaginatedJournals,
   addAJournal,
   modifyAJournal,
   deleteAJournal,
@@ -9,6 +10,7 @@ import {
   deleteAnArticleFromJournal,
 } from "../controllers/journals";
 
+router.get("/", getPaginatedJournals);
 router.post("/", addAJournal);
 router.patch("/:vol", modifyAJournal);
 router.delete("/:vol", deleteAJournal);

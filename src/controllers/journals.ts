@@ -1,6 +1,27 @@
 import { Request, Response } from "express";
 import { JournalModel } from "../models/JournalModel";
 
+export const getPaginatedJournals = async (req: Request, res: Response) => {
+  const journalsPerPage = 9;
+  const page: number = parseInt(req.query.page as string, 10) || 1;
+  try {
+    const journals = await JournalModel.find()
+      .limit(journalsPerPage)
+      .skip((page - 1) * journalsPerPage)
+      .sort({ vol: -1 })
+      .exec();
+
+    const count = await JournalModel.countDocuments();
+
+    return res.status(200).json({
+      journals,
+      totalPages: Math.ceil(count / journalsPerPage),
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 export const addAJournal = async (req: Request, res: Response) => {
   const { title, description, vol, coverUrl } = req.body;
   try {
