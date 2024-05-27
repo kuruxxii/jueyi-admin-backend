@@ -17,6 +17,7 @@ const journalSchema = new Schema<Journal>(
       type: Number,
       required: true,
       unique: true,
+      immutable: true,
     },
     coverUrl: {
       type: String,
