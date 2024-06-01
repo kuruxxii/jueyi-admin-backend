@@ -13,6 +13,7 @@ import authRouter from "./routes/auth";
 import articlesRouter from "./routes/articles";
 import journalRouter from "./routes/journals";
 import usersRouter from "./routes/users";
+import newsRouter from "./routes/news";
 
 const app = express();
 
@@ -49,6 +50,7 @@ app.use("/admin/auth", authRouter);
 app.use("/admin/articles", ensureAuthenticated, articlesRouter);
 app.use("/admin/journals", ensureAuthenticated, journalRouter);
 app.use("/admin/users", ensureAuthenticated, usersRouter);
+app.use("/admin/news", ensureAuthenticated, newsRouter);
 
 mongoose
   .connect(process.env.DB_URI as string)
