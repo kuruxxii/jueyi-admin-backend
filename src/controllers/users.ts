@@ -67,7 +67,7 @@ export const deleteAUser = async (req: Request, res: Response) => {
   }
 };
 
-const USERS_PER_PAGE = 12;
+const USERS_PER_PAGE = 8;
 
 export const getFilteredUsersTotalPages = async (
   req: Request,
