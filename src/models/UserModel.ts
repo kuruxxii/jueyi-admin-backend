@@ -2,14 +2,17 @@ import mongoose from "mongoose";
 const { Schema, model } = mongoose;
 import type { User } from "../lib/definitions";
 
-const userSchema = new Schema<User>({
-  email: { type: String, required: true, unique: true, immutable: true },
-  number: { type: String, required: true, unique: true },
-  subscription: {
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
+const userSchema = new Schema<User>(
+  {
+    email: { type: String, required: true, unique: true, immutable: true },
+    number: { type: String, required: true, unique: true },
+    subscription: {
+      startDate: { type: Date, required: true },
+      endDate: { type: Date, required: true },
+    },
   },
-});
+  { timestamps: true }
+);
 
 export const UserModel = model("User", userSchema);
 
