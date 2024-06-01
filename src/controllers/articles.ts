@@ -76,16 +76,6 @@ export const deleteAnArticle = async (req: Request, res: Response) => {
   }
 };
 
-// export const getArticles = async (req: Request, res: Response) => {
-//   try {
-//     // Get all articles
-//     const articles = await ArticleModel.find().sort({ createdAt: -1 }).exec();
-//     res.status(200).json(articles);
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
 const ARTICLES_PER_PAGE = 8;
 
 export const getFilteredArticlesTotalPages = async (

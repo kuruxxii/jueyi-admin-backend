@@ -6,10 +6,14 @@ const userSchema = new Schema<User>({
   email: { type: String, required: true, unique: true },
   number: { type: String, required: true, unique: true },
   subscription: {
-    isActive: { type: Boolean, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
   },
 });
 
 export const UserModel = model("User", userSchema);
+
+userSchema.methods.isSubscriptionActive = function () {
+  const now = new Date(); // Get the current date and time
+  return now <= this.subscription.endDate;
+};
