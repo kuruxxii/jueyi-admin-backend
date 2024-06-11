@@ -2,9 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /admin_backend
 
-COPY . .
+COPY package.json .
 
 RUN npm install
+
+COPY . .
 
 EXPOSE 4001
 
